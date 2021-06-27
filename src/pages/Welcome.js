@@ -12,14 +12,16 @@ export default function Welcome() {
 
   return (
     <div>
-      {credentials && <button onClick={logout}>Logout</button>}
+      <header className="main-header">
+        <h1>{credentials && credentials.username}'s TODO List</h1>
+        {credentials && <button className="logout" onClick={logout}>Logout</button>}
+      </header>
 
-      <h1>Welcome {credentials && credentials.username}</h1>
-      {!credentials && <Link to="/register">Register</Link>}
-      <br />
-      {!credentials && <Link to="/login">Login</Link>}
-      <br />
-      {credentials && <Todos />}
+      <main className="page-content page-content--welcome">
+        {!credentials && <Link to="/register">Register</Link>}
+        {!credentials && <Link to="/login">Login</Link>}
+        {credentials && <Todos />}
+      </main>
     </div>
   )
 }

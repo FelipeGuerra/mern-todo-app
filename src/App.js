@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import './App.css';
+import './App.scss';
+import 'normalize.css';
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Welcome from "./pages/Welcome";
@@ -9,7 +10,10 @@ import Login from "./pages/Login";
 export const CredentialsContext = React.createContext();
 
 function App() {
-  const credentialsState = useState(null);
+  const credentialsState = useState({
+    username: "guerra", //TODO CHANGE THIS LATER!
+    password: "1234"
+  });
   return (
     <div className="App">
       <CredentialsContext.Provider value={credentialsState}>
