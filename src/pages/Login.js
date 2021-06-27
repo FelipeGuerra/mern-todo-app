@@ -1,20 +1,25 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-
 import { CredentialsContext } from "../App";
 
-import { handleErrors } from './Login';
+export const handleErrors = async (response) => {
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw Error(message);
+  }
+  return response;
+}
 
-export default function Register() {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [, setCredentials] = useContext(CredentialsContext);
 
-  const register = (e) => {
+  const login = (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:4000/register', {
+    fetch('http://localhost:4000/login', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -40,11 +45,11 @@ export default function Register() {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Login</h1>
       <Link to="/">Welcome</Link>
       <br />
       {error && <span className="error">{error}</span>}
-      <form onSubmit={register}>
+      <form onSubmit={login}>
         <input type="text" placeholder="username" required
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -53,7 +58,7 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   )
