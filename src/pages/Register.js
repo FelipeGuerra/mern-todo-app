@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+
+import { CredentialsContext } from "../App";
 
 const handleErrors = async (response) => {
   if (!response.ok) {
@@ -13,6 +15,7 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [credentials, setCredentials] = useContext(CredentialsContext);
   const register = (e) => {
     e.preventDefault();
 
@@ -27,6 +30,10 @@ export default function Register() {
     })
       .then(handleErrors)
       .then(() => {
+        setCredentials({
+          username,
+          password
+        });
         history.push("/");
       })
       .catch((error) => {
